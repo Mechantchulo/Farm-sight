@@ -34,24 +34,24 @@ export default function CurrentWeather({ weather, city, region, lang, onLangTogg
   const country = current.location?.country;
 
   return (
-    <section className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:p-6">
+    <section className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:rounded-3xl sm:p-6">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Current Weather</p>
 
-      <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E7F0E9] sm:h-20 sm:w-20">
+      <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-center">
+        <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#E7F0E9] sm:h-20 sm:w-20">
             {iconUrl ? <img src={iconUrl} width="56" height="56" alt={details.condition_code ?? 'weather icon'} /> : null}
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">{city || 'Your area'}</h2>
-            <p className="text-sm text-slate-500">
+          <div className="min-w-0">
+            <h2 className="break-words text-2xl font-bold text-slate-900 sm:text-3xl">{city || 'Your area'}</h2>
+            <p className="break-words text-sm text-slate-500">
               {region || city || 'Local area'}
               {country ? `, ${country}` : ''}
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 sm:ml-auto">
+        <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center md:ml-auto">
           <button
             type="button"
             onClick={() => onLangToggle('en')}
@@ -77,15 +77,15 @@ export default function CurrentWeather({ weather, city, region, lang, onLangTogg
         </div>
       </div>
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-[auto_1fr] sm:items-end">
+      <div className="mt-5 grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-end">
         <div className="flex items-end gap-1">
-          <span className="text-5xl font-bold leading-none tracking-tight text-[#2D6A4F]">
+          <span className="text-5xl font-bold leading-none tracking-tight text-[#2D6A4F] sm:text-6xl">
             {Number.isFinite(temperature) ? Math.round(temperature) : '--'}
           </span>
           <span className="pb-1 text-xl text-slate-500">°C</span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600">
+        <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600">
           <span>
             Wind <strong className="text-slate-800">{Number.isFinite(details.wind_speed) ? `${details.wind_speed} km/h` : '-- km/h'}</strong>
           </span>
@@ -95,7 +95,7 @@ export default function CurrentWeather({ weather, city, region, lang, onLangTogg
 
       <div className={`mt-5 rounded-2xl border-l-4 p-4 ${aiSummary ? 'border-[#2D6A4F] bg-[#eef6ef]' : 'border-slate-300 bg-[#f7f5ef]'}`}>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">AI Insight</p>
-        <p className="mt-1 text-sm text-slate-500">{aiSummary ?? 'AI summaries available on Pro plan'}</p>
+        <p className="mt-1 break-words text-sm text-slate-500">{aiSummary ?? 'AI summaries available on Pro plan'}</p>
       </div>
     </section>
   );

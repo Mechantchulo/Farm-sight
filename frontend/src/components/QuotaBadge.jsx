@@ -13,11 +13,11 @@ export default function QuotaBadge({ quota }) {
 
   return (
     <div
-      className="inline-flex items-center rounded-full px-3 py-1.5 text-sm font-semibold text-white shadow-sm"
+      className="inline-flex max-w-full items-center rounded-full px-2.5 py-1.5 text-xs font-semibold text-white shadow-sm sm:px-3 sm:text-sm"
       style={{ backgroundColor: background }}
       aria-label={`${remaining} of ${limits} requests remaining`}
     >
-      {remaining.toLocaleString()} / {limits.toLocaleString()} requests
+      <span className="truncate">{remaining.toLocaleString()} / {limits.toLocaleString()} requests</span>
     </div>
   );
 }

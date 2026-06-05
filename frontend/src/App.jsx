@@ -160,40 +160,40 @@ export default function App() {
   };
 
   return (
-    <main className="min-h-screen">
-      <header className="sticky top-0 z-20 border-b border-[#2d6a4f]/20 bg-[#2D6A4F] px-4 py-3 text-white">
-        <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">🌱</span>
-            <div className="text-lg font-semibold tracking-tight">FarmSight</div>
+    <main className="min-h-screen overflow-x-hidden">
+      <header className="sticky top-0 z-20 border-b border-[#2d6a4f]/20 bg-[#2D6A4F] px-3 py-3 text-white sm:px-4">
+        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2 sm:gap-4">
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="shrink-0 text-lg">🌱</span>
+            <div className="truncate text-base font-semibold tracking-tight sm:text-lg">FarmSight</div>
           </div>
           <QuotaBadge quota={quota} />
         </div>
       </header>
 
-      <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mb-4 rounded-3xl bg-white px-5 py-4 shadow-sm ring-1 ring-slate-200">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Weather and farm intelligence</h1>
+      <div className="mx-auto w-full max-w-6xl px-3 py-4 sm:px-6 sm:py-6 lg:px-8">
+        <div className="mb-4 rounded-2xl bg-white px-4 py-4 shadow-sm ring-1 ring-slate-200 sm:rounded-3xl sm:px-5 lg:px-6">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">Weather and farm intelligence</h1>
           <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
             Simple weather updates and tree checks for Kenyan smallholder farmers.
           </p>
         </div>
 
         {error ? (
-          <div className="mb-4 rounded-3xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-900">
+          <div className="mb-4 break-words rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-900 sm:rounded-3xl">
             {error}
           </div>
         ) : null}
 
         <section className="grid gap-4">
-          <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
+          <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:rounded-3xl sm:p-5 lg:p-6">
+            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div className="min-w-0">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Location</p>
-                <h2 className="mt-1 text-xl font-bold text-slate-900">
+                <h2 className="mt-1 break-words text-xl font-bold text-slate-900">
                   {geo?.city || 'Use your device location'}
                 </h2>
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 break-words text-sm text-slate-500">
                   {geo?.source === 'manual'
                     ? 'Using your entered coordinates'
                     : geo?.source === 'backend'
@@ -206,22 +206,22 @@ export default function App() {
               <button
                 type="button"
                 onClick={handleUseDeviceLocation}
-                className="rounded-full border border-[#2D6A4F] bg-white px-4 py-2 text-sm font-semibold text-[#2D6A4F]"
+                className="w-full rounded-full border border-[#2D6A4F] bg-white px-4 py-2 text-sm font-semibold text-[#2D6A4F] transition hover:bg-[#eef6ef] sm:w-auto"
               >
                 {locating ? 'Finding location...' : 'Use my location'}
               </button>
             </div>
 
-            <form className="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto]" onSubmit={handleManualSubmit}>
+            <form className="mt-4 grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]" onSubmit={handleManualSubmit}>
               <input
-                className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-[#2D6A4F]"
+                className="min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-[#2D6A4F]"
                 placeholder="Latitude"
                 inputMode="decimal"
                 value={manualLat}
                 onChange={(event) => setManualLat(event.target.value)}
               />
               <input
-                className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-[#2D6A4F]"
+                className="min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-[#2D6A4F]"
                 placeholder="Longitude"
                 inputMode="decimal"
                 value={manualLon}
@@ -229,7 +229,7 @@ export default function App() {
               />
               <button
                 type="submit"
-                className="rounded-xl bg-[#2D6A4F] px-5 py-3 text-base font-semibold text-white transition hover:opacity-95"
+                className="rounded-xl bg-[#2D6A4F] px-5 py-3 text-base font-semibold text-white transition hover:opacity-95 md:whitespace-nowrap"
               >
                 Load weather
               </button>

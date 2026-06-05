@@ -152,12 +152,16 @@ async def fetch_weather(
         weather_data, daily_data = await asyncio.gather(weather_task, daily_task, return_exceptions=True)
 
     if isinstance(weather_data, Exception):
+        if isinstance(weather_data, WeatherAIError):
+            raise weather_data
         raise WeatherAIError(str(weather_data))
-    if isinstance(daily_data, Exception):
-        raise WeatherAIError(str(daily_data))
 
     weather_json, weather_headers = weather_data
-    daily_json, _ = daily_data
+    daily_json = None
+    if isinstance(daily_data, Exception):
+        daily_json = None
+    else:
+        daily_json, _ = daily_data
 
     current: dict[str, Any]
     if isinstance(weather_json, dict):

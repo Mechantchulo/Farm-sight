@@ -35,6 +35,7 @@ npm run dev
 
 - [Architecture and development guide](docs/development.md)
 - [API reference](docs/api-reference.md)
+- [DigitalOcean deployment: Nginx + Let's Encrypt](docs/deployment-digitalocean.md)
 
 ## Key Features
 

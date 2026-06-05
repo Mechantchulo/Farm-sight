@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from typing import Any
 
 import httpx
 
 from core.config import DEMO_MODE, WEATHERAI_BASE_URL, WAI_API_KEY
+
+logger = logging.getLogger(__name__)
 
 
 ERROR_CODE_BY_STATUS = {
@@ -153,12 +156,24 @@ async def fetch_weather(
 
     if isinstance(weather_data, Exception):
         if isinstance(weather_data, WeatherAIError):
+            logger.warning(
+                "WeatherAI /v1/weather failed",
+                extra={"status_code": weather_data.status_code, "code": weather_data.code},
+            )
             raise weather_data
+        logger.warning("WeatherAI /v1/weather failed", exc_info=weather_data)
         raise WeatherAIError(str(weather_data))
 
     weather_json, weather_headers = weather_data
     daily_json = None
     if isinstance(daily_data, Exception):
+        if isinstance(daily_data, WeatherAIError):
+            logger.warning(
+                "WeatherAI /v1/daily failed",
+                extra={"status_code": daily_data.status_code, "code": daily_data.code},
+            )
+        else:
+            logger.warning("WeatherAI /v1/daily failed", exc_info=daily_data)
         daily_json = None
     else:
         daily_json, _ = daily_data
